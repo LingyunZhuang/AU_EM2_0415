@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="清华LOGO.png" type="image/x-icon">
+
+  <script>;(function(){var w=parseInt(window.screen.width),s=w/640,u=navigator.userAgent.toLowerCase(),m='<meta name="viewport" content="width=640,';if(/android (\d+\.\d+)/.test(u)){if(parseFloat(RegExp.$1)>2.3)m+='minimum-scale='+s+',maximum-scale='+s+',';}else{m+='user-scalable=no,';}m+='target-densitydpi=device-dpi">';document.write(m);}());</script>
+  <link rel="stylesheet" href="guide.css">
+
+  <title>游戏指导语</title>
+</head>
+<body>
+
+
+
+
+
+<div id="main" class="container">
+  <img src="tsinghua_banner_2.png" width="100%">
+    <h2 class="title">正式游戏说明</h2>
+
+    <div class="content">
+      <article>
+      <p><b>接下来是8分钟的正式游戏，请阅读以下说明</b>：</p>
+      <p>1.你有<mark>充分的自主权</mark>，你的参与<mark>完全自愿</mark>你可以随时退出本研究。</p>
+      <p> 2.你可以<mark>自主选择</mark>游戏策略、调整方块的方向或者下落速度，<mark>探索适合自己的玩法</mark></p>
+      <p> 3.为了获得<mark>更好的游戏体验</mark>，实验全程请将手机静音且关闭震动。</p>
+      <p> 4.系统会记录你的游戏数据，这些信息会帮助我们优化未来的游戏设计。</p>
+      <p><b>实验报酬将按照如下规则发放：</b></p>
+      <p> 1.完成游戏体验及之后的问卷后，你将获得<mark>13元报酬</mark>。</p>
+      <p> 2.实验<mark>报酬与游戏得分无关</mark>，你可以轻松享受游戏过程，无需担心表现。</p>
+      <p> <b>现在，游戏即将开始，当你准备好时，可以点击下方按钮开始体验。</b></p>
+
+      <br>
+      <p class="hint_word">准备好之后点击按钮进入正式实验</p>
+      <button onclick="clickButton()" id="btn" disabled="disabled">准备好了 (10s)</button>
+    </article>
+  </div>
+
+</div>
+
+<style>
+
+  /* 标题样式 */
+  .title {
+    font-size: 1.8em; /* 根据需要调整字体大小 */
+    text-align: center; /* 标题居中 */
+    margin-bottom: 30px; /* 根据需要调整下边距 */
+    color: black; /* 改为黑色 */
+  }
+
+  /* 内容样式 */
+  .content p {
+    text-align: left; /* 左对齐 */
+    padding-left: 2em; /* 左起空两格，这里使用了em单位，相当于两个字的空间 */
+    margin-bottom: 15px; /* 根据需要调整段落下边距 */
+  }
+
+/* 提示文字样式 */
+.hint_word {
+      font-size: 1.2em; /* 根据需要调整字体大小 */
+      color: #777;        /* 颜色 */
+      text-align: center !important; /* 居中显示，并提高优先级 */
+      margin-top: 20px;   /* 上边距 */
+  }
+
+  /* 按钮样式 */
+  button {
+      display: block; /* 使按钮独占一行 */
+      margin: 30px auto; /* 上下边距，并水平居中 */
+      padding: 12px 25px;
+      font-size: 1.1em;
+      background-color: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      text-align: center; /* 文本居中 */
+  }
+
+  button:hover {
+      background-color: #219653;
+  }
+
+  button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+  }
+</style>
+
+<script>
+
+  // 记录该页面开始的时间
+  let timestamp = (new Date()).valueOf();
+
+  function getUrlParameter(name){
+    name = name.replace(/[]/,"\[").replace(/[]/,"\[").replace(/[]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec(window.parent.location.href );
+    if( results == null ) return ""; else {
+      return results[1];
+    }
+  };
+
+  // 获取练习页面传递过来的参数：速度和分数
+
+  function clickButton() {
+    var condition = getUrlParameter('c')
+    var ext = getUrlParameter('ext')
+    var link = 'guide-2.5.html?' + 'c=' + condition + '&ext=' + ext
+               + '&tchain=' + getUrlParameter('tchain') + '_' + timestamp
+    if (getUrlParameter('dev') === '1') {
+      link = link + '&dev=1'
+    }
+
+    window.location.href=link
+  }
+
+  // 修改目标内容, b和d条件是非具体目标
+  // if (['b','d'].indexOf(getUrlParameter('c'))> -1){
+  //   document.getElementById("goal").innerHTML="请尽量在本次实验的10分钟内发挥你的最佳水平";
+  // }
+
+  //实现按钮倒计时功能
+  let tim=15;
+  if (getUrlParameter('dev') === '1') {
+    tim = 3
+  }
+
+  function aaa(){
+    let btn=document.getElementById("btn");
+    if(tim<=0)
+    {
+      btn.textContent="准备好了";
+      btn.disabled="";
+      btn.style.backgroundColor = "#009ACD"; // 倒计时结束时，将按钮背景颜色改为蓝色
+    }
+    else
+    {
+      btn.textContent="准备好了 ("  +tim+"s)";
+      tim--;
+    }
+  }
+  setInterval("aaa()",1000);
+
+
+
+</script>
+
+
+
+</body>
+</html>
+
+
